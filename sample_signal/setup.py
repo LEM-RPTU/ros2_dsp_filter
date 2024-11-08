@@ -26,6 +26,7 @@ setup(
     entry_points={
         'console_scripts': [
             'sample_signal = sample_signal.sample_signal:main',
+            'sine = sample_signal.sine_wave:main',
         ],
     },
 )

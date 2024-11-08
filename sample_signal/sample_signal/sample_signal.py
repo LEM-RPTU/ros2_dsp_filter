@@ -10,8 +10,9 @@ class SineWavePublisher(Node):
         super().__init__('sine_wave_publisher')
         self.declare_parameter('frequency', 10.0)
         self.declare_parameter('amplitude', 10.0)
+        self.declare_parameter('sample_time', 0.01)
         self.publisher_ = self.create_publisher(Float32, 'sine_wave', 10)
-        self.timer_period = 0.02  # seconds
+        self.timer_period = self.get_parameter('sample_time').get_parameter_value().double_value  # seconds
         self.timer = self.create_timer(self.timer_period, self.timer_callback)
         self.i = 0
         self.counter = 0
@@ -20,18 +21,10 @@ class SineWavePublisher(Node):
 
     def timer_callback(self):
         msg = Float32()
-        if (self.counter == 0):
-            msg.data = self.amplitude * np.cos(2 * np.pi * self.frequency * self.i * self.timer_period)
-            self.counter = self.counter + 1
-        elif (self.counter == 1):
-            msg.data = self.amplitude * np.cos(2 * np.pi * self.frequency * self.i * self.timer_period*2)
-            self.counter = self.counter + 1
-        elif (self.counter == 2):
-            msg.data = self.amplitude * np.sin(2 * np.pi * self.frequency * self.i * self.timer_period/2)
-            self.counter = self.counter + 1
-        else:
-            msg.data = self.amplitude * np.sin(2 * np.pi * self.frequency * self.i * self.timer_period*4.5)
-            self.counter = 0
+        msg.data = self.amplitude * np.cos(2 * np.pi * self.frequency * self.i * self.timer_period) + \
+            self.amplitude * np.cos(2 * np.pi * self.frequency * self.i * self.timer_period*2) + \
+            self.amplitude * np.sin(2 * np.pi * self.frequency * self.i * self.timer_period/2) + \
+            self.amplitude * np.sin(2 * np.pi * self.frequency * self.i * self.timer_period*2.5)
         self.publisher_.publish(msg)
         self.i += 1
 
