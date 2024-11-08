@@ -1,9 +1,18 @@
 /**/sample_signal:
   ros__parameters:
     publisher_frequency:              50.0                     # Hz
+
+    base_signal:                      true
     base_signal_initial_value:        0.0                      
-    base_signal_step:                 0.1
-    sine_wave_components:             [ 2.0,  40.0, 0.0,       # Frequency, amplitude, phase shift(radians) pairs
+    base_signal_step:                 0.01
+    base_signal_exponential:          false
+    exponential_growth_rate:          0.005
+
+    sine_wave:                        false
+    sine_wave_components:             [ 2.0,  20.0, 0.0,       # Frequency, amplitude, phase shift(radians) pairs
                                         10.0, 10.0, 1.57,      # Add as much as needed
-                                        #5.0,  3.0 
+                                        #5.0,  3.0, 3.14 
                                       ]
+
+    square_wave:                      false
+    square_wave_components:           [0.5, 25.0]               # Frequency, amplitude pairs
