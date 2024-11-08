@@ -11,7 +11,7 @@ class MinimalSubscriber(Node):
 
     def __init__(self):
         super().__init__('minimal_subscriber')
-        self.subscription = self.create_subscription(Float32,'sine_wave', self.listener_callback, 10)
+        self.subscription = self.create_subscription(Float32,'sample_wave', self.listener_callback, 10)
         self.subscription
         self.publisher_ = self.create_publisher(Float32, 'check', 10)
         

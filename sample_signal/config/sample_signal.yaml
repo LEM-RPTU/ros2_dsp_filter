@@ -1,20 +1,9 @@
-/**/sample_signal1:
+/**/sample_signal:
   ros__parameters:
-    frequency: 2.0
-    amplitude: 40.0
-
-/**/sample_signal2:
-  ros__parameters:
-    frequency: 5.0
-    amplitude: 20.0    
-
-/**/sample_signal3:
-  ros__parameters:
-    frequency: 10.0
-    amplitude: 10.0                       
-
-
-/**/sample_signal4:
-  ros__parameters:
-    frequency: 20.0
-    amplitude: 5.0
+    publisher_frequency:              50.0                     # Hz
+    base_signal_initial_value:        0.0                      
+    base_signal_step:                 0.1
+    sine_wave_components:             [ 2.0,  40.0, 0.0,       # Frequency, amplitude, phase shift(radians) pairs
+                                        10.0, 10.0, 1.57,      # Add as much as needed
+                                        #5.0,  3.0 
+                                      ]

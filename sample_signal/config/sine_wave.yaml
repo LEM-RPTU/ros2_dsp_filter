@@ -1,5 +1,0 @@
-/**/sin:
-  ros__parameters:
-    frequency: 2.0
-    amplitude: 40.0
-    sample_time: 0.02
