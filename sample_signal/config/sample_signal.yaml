@@ -2,12 +2,13 @@
   ros__parameters:
     publisher_frequency:              50.0                     # Hz
 
-    base_signal:                      true
-    base_signal_initial_value:        0.0                      
+    base_signal:                      false
+    base_signal_initial_value:        0.0
     base_signal_step:                 0.01
     base_signal_exponential:          false
     exponential_growth_rate:          0.005
 
+    # To satisfy Shannon-Nyquist sampling theorem -> 2*signal_frequency < publisher_frequency.        
     sine_wave:                        false
     sine_wave_components:             [ 2.0,  20.0, 0.0,       # Frequency, amplitude, phase shift(radians) pairs
                                         10.0, 10.0, 1.57,      # Add as much as needed
@@ -15,4 +16,13 @@
                                       ]
 
     square_wave:                      false
-    square_wave_components:           [0.5, 25.0]               # Frequency, amplitude pairs
+    square_wave_components:           [0.5, 25.0]              # Frequency, amplitude pairs
+    
+    triangle_wave:                    true
+    triangle_wave_components:         [1.0, 24.0]              # Frequency, amplitude pairs
+    
+    sawtooth_wave:                    false
+    sawtooth_wave_components:         [1.5, 20.0]              # Frequency, amplitude pairs
+    
+    pulse_wave:                       false
+    pulse_wave_components:            [1.0, 15.0, 0.5]         # Frequency, amplitude, duty cycle pairs
