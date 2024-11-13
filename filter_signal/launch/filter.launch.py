@@ -11,32 +11,28 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
 
     # Get the package directories
-    cpp_python_package_share = get_package_share_directory('cpp_python_package')
+    cpp_python_package_share = get_package_share_directory('filter_signal')
 
     # Parameters
-    parameter_file = os.path.join(cpp_python_package_share, 'config', 'cpp_publisher.yaml')
+    parameter_file = os.path.join(cpp_python_package_share, 'config', 'filter.yaml')
 
     declare_namespace_cmd = DeclareLaunchArgument(
         name='namespace',
-        default_value='/my_namespace',
+        default_value='',
         description='Namespace'
     )
 
 
-    obstacle_tracker = Node(
-            package = 'cpp_python_package',
-            executable = 'cpp_publisher',
-            name='cpp_publisher',
+    filter_signal_cmd = Node(
+            package = 'filter_signal',
+            executable = 'filter.py',
+            name='filter_signal',
             namespace = LaunchConfiguration('namespace'),
             parameters = [parameter_file],
-            remappings=[
-                ('/tf', 'tf'),
-                ('/tf_static', 'tf_static'),
-            ]
     )
 
 
     ld = LaunchDescription()
     ld.add_action(declare_namespace_cmd)
-    ld.add_action(obstacle_tracker)
+    ld.add_action(filter_signal_cmd)
     return ld

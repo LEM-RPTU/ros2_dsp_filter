@@ -1,22 +1,23 @@
+#!/usr/bin/env python3 
+
 import rclpy
 import numpy as np
 import matplotlib.pyplot as plt
 import rclpy.duration
 from rclpy.node import Node
-
 from std_msgs.msg import Float32
+from rcl_interfaces.msg import SetParametersResult, Parameter
 
+from fft.parameters import ParameterSet
 
-class MinimalSubscriber(Node):
+class FFTPlotter(Node):
 
     def __init__(self):
-        super().__init__('minimal_subscriber')
-        self.subscription = self.create_subscription(Float32,'sample_wave', self.listener_callback, 10)
-        self.subscription
-        self.publisher_ = self.create_publisher(Float32, 'check', 10)
-        
-        self.samples_to_collect = 1000  # Collect 1000 samples before processing
-        self.window_multipliers = [1.0]*self.samples_to_collect
+        super().__init__('fft_plotter')
+        self.init_parameters()
+        # Create a subscription to the topic
+        self.subscription = self.create_subscription(Float32, self.params.topic, self.listener_callback, 10)
+        self.window_multipliers = [1.0]*self.params.number_of_samples
         self.fading_interval = 1
         self.jamm() 
         self.signal_buffer = []
@@ -24,8 +25,36 @@ class MinimalSubscriber(Node):
         self.subscription
         self.got_first_message = True
 
+
+    def init_parameters(self):
+        self.declare_parameter('topic', 'sample_wave')
+        self.declare_parameter('number_of_samples', 1000)
+        # Read values of parameters
+        self.params = ParameterSet(
+            topic = self.get_parameter('topic').get_parameter_value().string_value,
+            number_of_samples = self.get_parameter('number_of_samples').get_parameter_value().integer_value
+        )
         
-        
+        self.add_on_set_parameters_callback(self.parametersCallback)
+
+    def parametersCallback(self, parameters: list[Parameter]):
+        result = SetParametersResult()
+        result.successful = True
+        for param in parameters:
+            if param.name == 'topic':
+                result.successful = False
+                result.reason = f"Parameter {param.name} cannot be changed runtime."
+                self.get_logger().warn(result.reason)
+            elif param.name == 'number_of_samples':
+                result.successful = False
+                result.reason = f"Parameter {param.name} cannot be changed runtime."
+                self.get_logger().warn(result.reason)
+            else:
+                result.successful = False
+                result.reason = f"Could not find {param.name} to be changed or parameter is not implemented for run-time change."
+                self.get_logger().warn(result.reason)             
+        return result
+
     def jamm(self):
         fade_in = np.linspace(0, 1, self.fading_interval)
         fade_out = np.linspace(1, 0, self.fading_interval)
@@ -37,15 +66,12 @@ class MinimalSubscriber(Node):
             self.start_time = self.get_clock().now()
             self.got_first_message = False
         self.signal_buffer.append(msg.data * self.window_multipliers[self.counter])
-        msg = Float32()
-        msg.data = self.signal_buffer[self.counter]
-        self.publisher_.publish(msg)
         self.counter = self.counter + 1
-        if len(self.signal_buffer) >= self.samples_to_collect:
+        if len(self.signal_buffer) >= self.params.number_of_samples:
             self.time_difference = self.get_clock().now() - self.start_time
             self.time = float(self.time_difference.nanoseconds / 1e9)  # Convert nanoseconds to milliseconds 
             self.get_logger().info(f'Duration: {self.time} s')
-            self.sample_frequency = self.samples_to_collect/self.time
+            self.sample_frequency = self.params.number_of_samples/self.time
             self.get_logger().info(f'Sample Frequency: {self.sample_frequency:.6f} Hz')
             self.nyquist_frequency = self.sample_frequency/2
             self.perform_fft()
@@ -76,9 +102,9 @@ class MinimalSubscriber(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    minimal_subscriber = MinimalSubscriber()
-    rclpy.spin(minimal_subscriber)
-    minimal_subscriber.destroy_node()
+    fastFourier_plotter = FFTPlotter()
+    rclpy.spin(fastFourier_plotter)
+    fastFourier_plotter.destroy_node()
     rclpy.shutdown()
 
 
