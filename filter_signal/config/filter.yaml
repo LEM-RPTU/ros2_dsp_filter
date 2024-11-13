@@ -1,5 +1,5 @@
 /**/filter_signal:
   ros__parameters:
-    lowpass_cuttoff_frequency: 5.0
+    lowpass_cuttoff_frequency: 20.0
     signal_topic: sample_wave
     use_sim_time: false

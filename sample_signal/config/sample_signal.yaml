@@ -1,6 +1,6 @@
 /**/sample_signal:
   ros__parameters:
-    publisher_frequency:              50.0                     # Hz
+    publisher_frequency:              200.0                     # Hz
 
     base_signal:                      false
     base_signal_initial_value:        0.0
@@ -11,7 +11,7 @@
     # To satisfy Shannon-Nyquist sampling theorem -> 2*signal_frequency < publisher_frequency.        
     sine_wave:                        true
     sine_wave_components:             [ 2.0,  20.0, 0.0,       # Frequency, amplitude, phase shift(radians) pairs
-                                        10.0, 10.0, 1.57,      # Add as much as needed
+                                        80.0, 10.0, 1.57,      # Add as much as needed
                                         #5.0,  3.0, 3.14 
                                       ]
 
