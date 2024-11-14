@@ -5,7 +5,6 @@ from rclpy.node import Node
 from std_msgs.msg import Float32
 from rcl_interfaces.msg import SetParametersResult, Parameter
 from filter_signal.parameters import ParameterSet
-import filter_signal.filters as filters
 from scipy import signal
 
 class SignalFilter(Node):
@@ -22,16 +21,19 @@ class SignalFilter(Node):
             self.number_of_messages_received += 1
             return
         elif(self.number_of_messages_received == self.params.number_of_messages_to_average_sample_time_over):
+            # calulate sample time & then destroy the subscription
             self.sample_time = (self.get_clock().now() - self.time_first_message_received).nanoseconds / (1e9*self.number_of_messages_received)
-            self.get_logger().info(f"Sample time is: {self.sample_time:.4f} seconds. Destroying sample-time subscription.")
+            self.get_logger().debug(f"Destroying sample-time subscription.")
             self.destroy_subscription(self.sample_time_subscription)
-            sample_frequency = (1.0/self.sample_time)
-            self.get_logger().info(f"Sample frequency is: {sample_frequency:.4f} Hz.")
-            self.b, self.a = signal.butter(N=4, Wn=self.params.lowpass_cuttoff_frequency, btype='lowpass', analog=False, fs=sample_frequency)
-            self.filter_state = signal.lfilter_zi(self.b, self.a)
-            self.get_logger().info(f"Starting publisher of filtered message.")
+            self.sample_frequency = (1.0/self.sample_time)
+            self.get_logger().info(f"Sample time is: {self.sample_time:.4f} s.")
+            self.get_logger().info(f"Sample frequency is: {self.sample_frequency:.4f} Hz.")
+            # Initialize filters
+            self.init_filters()
+            # start subscribing signal and publishing filtered signal
+            self.get_logger().debug(f"Starting publisher of filtered message.")
             self.publisher_filtered_signal = self.create_publisher(Float32, self.params.signal_topic + '/filtered', 10)
-            self.get_logger().info(f"Starting subscription for filtering.")
+            self.get_logger().debug(f"Starting subscription for filtering.")
             self.subscription_sample_signal = self.create_subscription(Float32, self.params.signal_topic, self.subscription_sample_signal_callback_, 10)
             return
         else:
@@ -43,16 +45,41 @@ class SignalFilter(Node):
             filtered_signal_msg = Float32()
             filtered_signal_msg.data = filtered_signal[0]
             self.publisher_filtered_signal.publish(filtered_signal_msg)
+        
+    def init_filters(self):
+            if self.params.filter_type == 'lowpass':
+                self.b, self.a = signal.butter(N=self.params.filter_order, 
+                                               Wn=self.params.frequency_band[0], 
+                                               btype=self.params.filter_type, 
+                                               analog=False, 
+                                               fs=self.sample_frequency)
+            elif self.params.filter_type == 'highpass':
+                self.b, self.a = signal.butter(N=self.params.filter_order, 
+                                               Wn=self.params.frequency_band[1], 
+                                               btype=self.params.filter_type, 
+                                               analog=False, 
+                                               fs=self.sample_frequency)
+            else:
+                self.b, self.a = signal.butter(N=self.params.filter_order, 
+                                               Wn=self.params.frequency_band, 
+                                               btype=self.params.filter_type, 
+                                               analog=False, 
+                                               fs=self.sample_frequency)
+            self.filter_state = signal.lfilter_zi(self.b, self.a)
 
     def init_parameters(self):
         self.declare_parameter('signal_topic', 'sample_wave')
-        self.declare_parameter('lowpass_cuttoff_frequency', 5.0) # Hz
-        self.declare_parameter('number_of_messages_to_average_sample_time_over', 10) 
+        self.declare_parameter('frequency_band', [1.0, 50.0]) # Hz, must be strictly positive
+        self.declare_parameter('number_of_messages_to_average_sample_time_over', 100) #min. 1 and integer
+        self.declare_parameter('filter_type', 'lowpass') # {lowpass, highpass, bandpass, bandstop} are supported
+        self.declare_parameter('filter_order', 4) # min. 1 and integer
         # Read values of parameters
         self.params = ParameterSet(
             signal_topic = self.get_parameter('signal_topic').get_parameter_value().string_value,
-            lowpass_cuttoff_frequency = self.get_parameter('lowpass_cuttoff_frequency').get_parameter_value().double_value,
-            number_of_messages_to_average_sample_time_over = self.get_parameter('number_of_messages_to_average_sample_time_over').get_parameter_value().integer_value
+            frequency_band = self.get_parameter('frequency_band').get_parameter_value().double_array_value,
+            number_of_messages_to_average_sample_time_over = self.get_parameter('number_of_messages_to_average_sample_time_over').get_parameter_value().integer_value,
+            filter_type = self.get_parameter('filter_type').get_parameter_value().string_value,
+            filter_order = self.get_parameter('filter_order').get_parameter_value().integer_value
         )
         for parameter in self.params.__dict__.keys():
             self.get_logger().info(f"Parameter {parameter} is: {self.params.__dict__[parameter]}")
@@ -67,11 +94,19 @@ class SignalFilter(Node):
                 result.successful = False
                 result.reason = f"Parameter {param.name} cannot be changed runtime."
                 self.get_logger().warn(result.reason)
-            elif param.name == 'lowpass_cuttoff_frequency':
-                result.successful = True
-                result.reason = f"Parameter {param.name} changed successfully to {param.value:.2f}."
-                self.params.lowpass_cuttoff_frequency = param.value.double_value
+            elif param.name == 'frequency_band':
+                result.successful = False
+                result.reason = f"Parameter {param.name} cannot be changed runtime."
+                self.get_logger().warn(result.reason)
             elif param.name == 'number_of_messages_to_average_sample_time_over':
+                result.successful = False
+                result.reason = f"Parameter {param.name} cannot be changed runtime."
+                self.get_logger().warn(result.reason)
+            elif param.name == 'filter_type':
+                result.successful = False
+                result.reason = f"Parameter {param.name} cannot be changed runtime."
+                self.get_logger().warn(result.reason)
+            elif param.name == 'filter_order':
                 result.successful = False
                 result.reason = f"Parameter {param.name} cannot be changed runtime."
                 self.get_logger().warn(result.reason)

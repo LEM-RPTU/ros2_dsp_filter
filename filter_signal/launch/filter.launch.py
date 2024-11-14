@@ -14,7 +14,7 @@ def generate_launch_description():
     cpp_python_package_share = get_package_share_directory('filter_signal')
 
     # Parameters
-    parameter_file = os.path.join(cpp_python_package_share, 'config', 'filter.yaml')
+    parameter_file = os.path.join(cpp_python_package_share, 'config', 'lowpass.yaml')
 
     declare_namespace_cmd = DeclareLaunchArgument(
         name='namespace',

@@ -1,6 +1,0 @@
-/**/filter_signal:
-  ros__parameters:
-    lowpass_cuttoff_frequency: 20.0
-    signal_topic: sample_wave
-    number_of_messages_to_average_sample_time_over: 1000
-    use_sim_time: false
