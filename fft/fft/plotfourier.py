@@ -89,7 +89,7 @@ class FFTPlotter(Node):
 
         # Only plot the positive half of the frequencies
         plt.plot(frequencies[:N // 2], fft_amplitude)
-        plt.title('Frequency Domain Signal')
+        plt.title(f'{self.params.topic}')
         plt.xlabel('Frequency (Hz)')
         plt.ylabel('Amplitude')
         plt.grid()
