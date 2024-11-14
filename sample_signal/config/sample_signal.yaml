@@ -15,14 +15,14 @@
                                         #5.0,  3.0, 3.14 
                                       ]
 
-    square_wave:                      false
+    square_wave:                      true
     square_wave_components:           [0.5, 25.0]              # Frequency, amplitude pairs
     
-    triangle_wave:                    false
+    triangle_wave:                    true
     triangle_wave_components:         [1.0, 24.0]              # Frequency, amplitude pairs
     
-    sawtooth_wave:                    false
+    sawtooth_wave:                    true
     sawtooth_wave_components:         [1.5, 20.0]              # Frequency, amplitude pairs
     
-    pulse_wave:                       false
+    pulse_wave:                       true
     pulse_wave_components:            [1.0, 15.0, 0.5]         # Frequency, amplitude, duty cycle pairs

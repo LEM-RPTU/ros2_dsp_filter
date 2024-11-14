@@ -25,7 +25,7 @@ class LowPassFilter():
 class HighPassFilter():
     def __init__(self, cuttoff_frequency, sample_time):
         """
-            Implements a first-order low-pass filter.
+            Implements a first-order high-pass filter.
             y_k = alpha*(y_{k-1} + x_k - x_{k-1})
             where:
             delta_t = sample_time

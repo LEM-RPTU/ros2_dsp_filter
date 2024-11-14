@@ -6,6 +6,7 @@ from std_msgs.msg import Float32
 from rcl_interfaces.msg import SetParametersResult, Parameter
 from filter_signal.parameters import ParameterSet
 import filter_signal.filters as filters
+from scipy import signal
 
 class SignalFilter(Node):
 
@@ -24,7 +25,10 @@ class SignalFilter(Node):
             self.sample_time = (self.get_clock().now() - self.time_first_message_received).nanoseconds / (1e9*self.number_of_messages_received)
             self.get_logger().info(f"Sample time is: {self.sample_time:.4f} seconds. Destroying sample-time subscription.")
             self.destroy_subscription(self.sample_time_subscription)
-            self.low_pass_filter = filters.LowPassFilter(self.params.lowpass_cuttoff_frequency, self.sample_time)
+            sample_frequency = (1.0/self.sample_time)
+            self.get_logger().info(f"Sample frequency is: {sample_frequency:.4f} Hz.")
+            self.b, self.a = signal.butter(N=4, Wn=self.params.lowpass_cuttoff_frequency, btype='lowpass', analog=False, fs=sample_frequency)
+            self.filter_state = signal.lfilter_zi(self.b, self.a)
             self.get_logger().info(f"Starting publisher of filtered message.")
             self.publisher_filtered_signal = self.create_publisher(Float32, self.params.signal_topic + '/filtered', 10)
             self.get_logger().info(f"Starting subscription for filtering.")
@@ -35,10 +39,10 @@ class SignalFilter(Node):
             return
         
     def subscription_sample_signal_callback_(self, msg: Float32):
-            filtered_signal = self.low_pass_filter.filter(msg.data)
+            filtered_signal, self.filter_state = signal.lfilter(self.b, self.a, [msg.data], zi=self.filter_state)
             filtered_signal_msg = Float32()
-            filtered_signal_msg.data = filtered_signal
-            self.publisher_filtered_signal.publish(filtered_signal_msg)    
+            filtered_signal_msg.data = filtered_signal[0]
+            self.publisher_filtered_signal.publish(filtered_signal_msg)
 
     def init_parameters(self):
         self.declare_parameter('signal_topic', 'sample_wave')
@@ -50,7 +54,9 @@ class SignalFilter(Node):
             lowpass_cuttoff_frequency = self.get_parameter('lowpass_cuttoff_frequency').get_parameter_value().double_value,
             number_of_messages_to_average_sample_time_over = self.get_parameter('number_of_messages_to_average_sample_time_over').get_parameter_value().integer_value
         )
-        
+        for parameter in self.params.__dict__.keys():
+            self.get_logger().info(f"Parameter {parameter} is: {self.params.__dict__[parameter]}")
+
         self.add_on_set_parameters_callback(self.parametersCallback)
 
     def parametersCallback(self, parameters: list[Parameter]):
