@@ -13,7 +13,7 @@ def generate_launch_description():
     cpp_python_package_share = get_package_share_directory('filter_signal')
 
     # Parameters
-    parameter_file = os.path.join(cpp_python_package_share, 'config', 'bandpass.yaml')
+    parameter_file = os.path.join(cpp_python_package_share, 'config', 'analyse.yaml')
 
     declare_namespace_cmd = DeclareLaunchArgument(
         name='namespace',
@@ -22,10 +22,9 @@ def generate_launch_description():
     )
 
 
-    filter_signal_cmd = Node(
+    analyse_topic_cmd = Node(
             package = 'filter_signal',
-            executable = 'filter.py',
-            name='filter_signal',
+            executable = 'topic_analyser.py',
             namespace = LaunchConfiguration('namespace'),
             parameters = [parameter_file],
     )
@@ -33,5 +32,5 @@ def generate_launch_description():
 
     ld = LaunchDescription()
     ld.add_action(declare_namespace_cmd)
-    ld.add_action(filter_signal_cmd)
+    ld.add_action(analyse_topic_cmd)
     return ld

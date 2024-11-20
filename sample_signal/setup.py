@@ -27,6 +27,7 @@ setup(
         'console_scripts': [
             'sample_signal = sample_signal.sample_signal:main',
             'sine = sample_signal.sine_wave:main',
+            'imu = sample_signal.imu:main',
         ],
     },
 )

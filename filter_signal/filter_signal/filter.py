@@ -4,7 +4,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32
 from rcl_interfaces.msg import SetParametersResult, Parameter
-from filter_signal.parameters import ParameterSet
+from filter_signal.filter_parameters import ParameterSet
 from scipy import signal
 
 class SignalFilter(Node):

@@ -1,0 +1,49 @@
+topic_analyser:
+  angular_velocity:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  angular_velocity_covariance:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  header:
+    frame_id: imu_frame
+    stamp:
+      nanosec: 413849829
+      sec: 1732097342
+  linear_acceleration:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  linear_acceleration_covariance:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  orientation:
+    w: 1.0
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  orientation_covariance:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0

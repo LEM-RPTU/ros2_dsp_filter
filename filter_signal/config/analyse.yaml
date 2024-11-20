@@ -1,0 +1,5 @@
+/**/topic_analyser:
+  ros__parameters:
+    topic: imu
+    config_path: /home/erics/software/ros_ws/src/fft/filter_signal/config
+    result_file_name: analytic_result
