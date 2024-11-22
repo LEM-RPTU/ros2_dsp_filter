@@ -59,39 +59,39 @@ class SampleWavePublisher(Node):
         self.publisher_.publish(msg) 
         self.time_step += 1.0
 
-    def add_sine_component(self, msg):
+    def add_sine_component(self, msg: Float32):
         for i in range(0, len(self.sine_wave_components), 3): 
             sine_frequency = self.sine_wave_components[i] 
             sine_amplitude = self.sine_wave_components[i + 1] 
             phase_shift = self.sine_wave_components[i + 2] 
             msg.data += sine_amplitude * np.cos(2 * np.pi * sine_frequency * self.time_step * self.timer_period + phase_shift)
 
-    def add_square_component(self, msg):
+    def add_square_component(self, msg: Float32):
         for i in range(0, len(self.square_wave_components), 2): 
             square_frequency = self.square_wave_components[i] 
             square_amplitude = self.square_wave_components[i + 1] 
             msg.data += square_amplitude * np.sign(np.sin(2 * np.pi * square_frequency * self.time_step * self.timer_period))
 
-    def add_triangle_component(self, msg):
+    def add_triangle_component(self, msg: Float32):
         for i in range(0, len(self.triangle_wave_components), 2):
             triangle_frequency = self.triangle_wave_components[i]
             triangle_amplitude = self.triangle_wave_components[i + 1]
             msg.data += triangle_amplitude * (2 / np.pi) * np.arcsin(np.sin(2 * np.pi * triangle_frequency * self.time_step * self.timer_period))
 
-    def add_sawtooth_component(self, msg):
+    def add_sawtooth_component(self, msg: Float32):
         for i in range(0, len(self.sawtooth_wave_components), 2):
             sawtooth_frequency = self.sawtooth_wave_components[i]
             sawtooth_amplitude = self.sawtooth_wave_components[i + 1]
             msg.data += sawtooth_amplitude * (2 / np.pi) * (sawtooth_frequency * np.pi * (self.time_step * self.timer_period % (1/sawtooth_frequency)) - np.pi / 2)
 
-    def add_pulse_component(self, msg):
+    def add_pulse_component(self, msg: Float32):
         for i in range(0, len(self.pulse_wave_components), 3):
             pulse_frequency = self.pulse_wave_components[i]
             pulse_amplitude = self.pulse_wave_components[i + 1]
             duty_cycle = self.pulse_wave_components[i + 2]
             msg.data += pulse_amplitude * (np.sign(np.sin(2 * np.pi * pulse_frequency * self.time_step * self.timer_period)) > 2 * duty_cycle - 1)
     
-    def add_base_signal(self, msg):
+    def add_base_signal(self, msg: Float32):
         if self.get_parameter('base_signal_exponential').get_parameter_value().bool_value:
             msg.data = np.exp(self.get_parameter('exponential_growth_rate').get_parameter_value().double_value * self.time_step)
         else:

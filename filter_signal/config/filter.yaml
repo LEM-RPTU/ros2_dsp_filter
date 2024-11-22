@@ -1,5 +1,5 @@
-/**/topic_analyser:
+/**/filter:
   ros__parameters:
-    topic: sample_wave
+    signal_topic: bno055/imu
     config_path: /home/erics/software/ros_ws/src/fft/filter_signal/filter_config
-    result_file_name: analytic_result
+    config_file_name: imu

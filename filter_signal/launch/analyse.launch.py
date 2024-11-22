@@ -24,7 +24,7 @@ def generate_launch_description():
 
     analyse_topic_cmd = Node(
             package = 'filter_signal',
-            executable = 'topic_analyser.py',
+            executable = 'analyse.py',
             namespace = LaunchConfiguration('namespace'),
             parameters = [parameter_file],
     )

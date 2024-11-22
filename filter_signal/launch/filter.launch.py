@@ -8,30 +8,31 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
-
     # Get the package directories
     cpp_python_package_share = get_package_share_directory('filter_signal')
 
     # Parameters
-    parameter_file = os.path.join(cpp_python_package_share, 'config', 'bandpass.yaml')
+    parameter_file = os.path.join(cpp_python_package_share, 'config', 'filter.yaml')
 
     declare_namespace_cmd = DeclareLaunchArgument(
         name='namespace',
-        default_value='',
+        default_value='hunter_se',
         description='Namespace'
     )
 
-
-    filter_signal_cmd = Node(
+    generic_filter_signal_cmd = Node(
             package = 'filter_signal',
             executable = 'filter.py',
-            name='filter_signal',
-            namespace = LaunchConfiguration('namespace'),
-            parameters = [parameter_file],
+            namespace=LaunchConfiguration('namespace'),
+            parameters=[
+                {'signal_topic': 'bno055/imu'},
+                {'config_path': '/home/erics/software/ros_ws/src/fft/filter_signal/filter_config'},
+                {'config_file_name': 'imu'}
+            ]
     )
 
 
     ld = LaunchDescription()
     ld.add_action(declare_namespace_cmd)
-    ld.add_action(filter_signal_cmd)
+    ld.add_action(generic_filter_signal_cmd)
     return ld

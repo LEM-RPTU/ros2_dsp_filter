@@ -27,7 +27,7 @@ class FFTPlotter(Node):
 
 
     def init_parameters(self):
-        self.declare_parameter('topic', 'sample_wave')
+        self.declare_parameter('topic', '/hunter_se/test_signal')
         self.declare_parameter('number_of_samples', 1000)
         # Read values of parameters
         self.params = ParameterSet(
@@ -43,11 +43,11 @@ class FFTPlotter(Node):
         for param in parameters:
             if param.name == 'topic':
                 result.successful = False
-                result.reason = f"Parameter {param.name} cannot be changed runtime."
+                result.reason = f"Parameter {param.name} cannot be changed at runtime."
                 self.get_logger().warn(result.reason)
             elif param.name == 'number_of_samples':
                 result.successful = False
-                result.reason = f"Parameter {param.name} cannot be changed runtime."
+                result.reason = f"Parameter {param.name} cannot be changed at runtime."
                 self.get_logger().warn(result.reason)
             else:
                 result.successful = False

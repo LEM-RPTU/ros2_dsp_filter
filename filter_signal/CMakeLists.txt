@@ -31,6 +31,7 @@ include_directories(include)
 install(DIRECTORY 
   config
   launch
+  filter_config
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -46,7 +47,7 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
   filter_signal/filter.py
-  filter_signal/topic_analyser.py
+  filter_signal/analyse.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
