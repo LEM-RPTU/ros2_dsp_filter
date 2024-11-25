@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from rclpy.node import Node
 from std_msgs.msg import Float32
 import numpy as np
