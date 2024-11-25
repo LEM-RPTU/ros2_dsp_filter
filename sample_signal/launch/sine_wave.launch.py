@@ -19,10 +19,10 @@ def generate_launch_description():
         
     sample_signal_cmd=Node(
         package = 'sample_signal',
-        name = 'sample_signal',
-        executable = 'sample_signal.py',
+        name = 'sine_wave',
+        executable = 'sine_wave.py',
         namespace=LaunchConfiguration('namespace'),
-        parameters = [os.path.join(sample_signal_package_share, 'config', 'sample_signal.yaml')]
+        parameters = [os.path.join(sample_signal_package_share, 'config', 'sine_wave.yaml')]
     )
     ld.add_action(declare_namespace_cmd)
     ld.add_action(sample_signal_cmd)

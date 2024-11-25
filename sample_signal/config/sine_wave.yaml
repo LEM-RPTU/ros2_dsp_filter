@@ -1,0 +1,6 @@
+/**/sine_wave:
+  ros__parameters:
+    frequency: 5.0 # Hz
+    amplitude: 20.0
+    sample_time: 0.01 # s
+    topic_name: 'sine_wave' 

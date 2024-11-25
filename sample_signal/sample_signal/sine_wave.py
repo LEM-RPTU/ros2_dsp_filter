@@ -9,7 +9,7 @@ class SineWavePublisher(Node):
 
     def __init__(self):
         super().__init__('sine_wave_publisher')
-        self.declare_parameter('frequency', 10.0)
+        self.declare_parameter('frequency', 2.0)
         self.declare_parameter('amplitude', 10.0)
         self.declare_parameter('sample_time', 0.02)
         self.declare_parameter('topic_name', 'sine_wave')
