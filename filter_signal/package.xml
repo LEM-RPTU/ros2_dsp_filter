@@ -4,6 +4,7 @@
   <name>filter_signal</name>
   <version>0.0.0</version>
   <description>Signal processing filter to any ROS2 topic.</description>
+  <maintainer email="dzmitry.maladzenkau@rptu.de">Dzmitry Maladzenkau</maintainer>
   <maintainer email="eric.schoeneberg@rptu.de">Eric Schoeneberg</maintainer>
   <license>TODO: License declaration</license>
 
