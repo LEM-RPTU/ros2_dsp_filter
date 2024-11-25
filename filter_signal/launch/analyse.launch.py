@@ -10,10 +10,10 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
 
     # Get the package directories
-    cpp_python_package_share = get_package_share_directory('filter_signal')
+    filter_signal_package_share = get_package_share_directory('filter_signal')
 
     # Parameters
-    parameter_file = os.path.join(cpp_python_package_share, 'config', 'analyse.yaml')
+    parameter_file = os.path.join(filter_signal_package_share, 'config', 'analyse.yaml')
 
     declare_namespace_cmd = DeclareLaunchArgument(
         name='namespace',
