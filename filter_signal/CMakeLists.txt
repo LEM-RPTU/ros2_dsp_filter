@@ -32,6 +32,7 @@ install(DIRECTORY
   config
   launch
   filter_config
+  fourier_config
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -48,6 +49,7 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   filter_signal/filter.py
   filter_signal/analyse.py
+  filter_signal/fourier.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -12,7 +12,7 @@ def generate_launch_description():
     cpp_python_package_share = get_package_share_directory('filter_signal')
 
     # Parameters
-    parameter_file = os.path.join(cpp_python_package_share, 'config', 'filter.yaml')
+    parameter_file = os.path.join(cpp_python_package_share, 'config', 'fourier.yaml')
 
     declare_namespace_cmd = DeclareLaunchArgument(
         name='namespace',
@@ -22,13 +22,9 @@ def generate_launch_description():
 
     generic_filter_signal_cmd = Node(
             package = 'filter_signal',
-            executable = 'filter.py',
+            executable = 'fourier.py',
             namespace=LaunchConfiguration('namespace'),
-            parameters=[
-                {'signal_topic': 'bno055/imu'},
-                {'config_path': '/home/erics/software/ros_ws/src/fft/filter_signal/filter_config'},
-                {'config_file_name': 'imu'}
-            ]
+            parameters=[parameter_file]
     )
 
 

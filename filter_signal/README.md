@@ -8,11 +8,12 @@ This package contains tools to signal-process any ROS2 message.
 3. [Building and Running](#building-and-running)  
     - [Analyse](#analyse)
     - [Filter](#filter)
+    - [Fourier](#fourier)
 
 
 ## About this repository
 
-This package contains two executables `analyse.py` and `filter.py` to analyse and then signal-process any ROS2 message. Currently
+This package contains two executables `analyse.py`, `filter.py` and `fourier.py` to analyse and then signal-process any ROS2 message. Currently
 any float part of any message can be filtered with
 
 - Highpass
@@ -75,9 +76,10 @@ If you are using `colcon build --symlink-install` or e.g. using VSCode ROS2 Exte
 ```bash
 chmod +x filter.py
 chmod +x analyse.py
+chmod +x fourier.py
 ```
 
-Remember that only message types can be analysed and filtered that are also sourced. Hence if there is an interface package in your workspace (not installed in /opt/ros), make sure to also source the workspace before running. To run, proceed with [Analyse](#analyse) and [Filter](#filter). Note there exists `analyse.launch.py` and `filter.launch.py` launch files with associated `analyse.yaml` and `filter.yaml` configuration files for orientation.
+Remember that only message types can be analysed and filtered that are also sourced. Hence if there is an interface package in your workspace (not installed in /opt/ros), make sure to also source the workspace before running. To run, proceed with [Analyse](#analyse) and [Filter](#filter). Note there exists `analyse.launch.py`, `filter.launch.py` and `fourier.launch.py` launch files with associated `analyse.yaml`, `filter.yaml` and `fourier.yaml` configuration files for orientation.
 
 ### Analyse
 
@@ -177,3 +179,59 @@ orientation_covariance:
 
 and load the edited file as the `filter` config file. While the configuration file will be of type `.yaml`, do not include `.yaml` in the parameter value `config_file_name`, 
 the file ending will be added automatically. Once the node is running it will publish into `topic/filtered`.
+
+### Fourier
+
+`fourier.py` will subscribe to a topic of your choice and perform a Fast-Fourier Transform of the signal according to the configuration file. The parameter:default_value are as following:
+
+- `topic`:`sample_signal`
+- `number_of_samples`: 1000
+- `config_path`:`~`
+- `config_file_name`:`float32` 
+
+where `~` is the home-directory of the user executing the code. Now, given the `analytic_result` from [Analyse](#analyse), we can edit it to become a `config_file` for the filter. 
+For example, take the result file for an `sensor_msgs.msg.Imu`, and assume you want to see a Fourier-Analysis of  
+
+- `angular_velocity.x`
+- `angular_velocity.y`
+- `linear_acceleration.x`
+- `linear_acceleration.z`
+
+then you would edit the file to look like:
+
+```bash
+angular_velocity:
+  x: True
+  y: True
+  z: 0.0
+angular_velocity_covariance:
+- 0.0
+- ...
+- 0.0
+header:
+  frame_id: imu_frame
+  stamp:
+    nanosec: 413849829
+    sec: 1732097342
+linear_acceleration:
+  x: True
+  y: 0.0
+  z: True
+linear_acceleration_covariance:
+- 0.0
+- ...
+- 0.0
+orientation:
+  w: 1.0
+  x: 0.0
+  y: 0.0
+  z: 0.0
+orientation_covariance:
+- 0.0
+- ...
+- 0.0
+```
+and load the edited file as the `filter` config file. While the configuration file will be of type `.yaml`, do not include `.yaml` in the parameter value `config_file_name`, 
+the file ending will be added automatically. The code will be running until it has saved all `number_of_samples` and then plot the result, e.g.:
+
+![FFT result of real-world IMU data](fft_result.png) FFT result of real-world IMU data
