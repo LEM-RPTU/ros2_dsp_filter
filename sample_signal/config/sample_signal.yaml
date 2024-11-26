@@ -9,7 +9,7 @@
     exponential_growth_rate:          0.005
 
     # To satisfy Shannon-Nyquist sampling theorem -> 2*signal_frequency < publisher_frequency.        
-    sine_wave:                        True
+    sine_wave:                        False
     sine_wave_components:             [ 2.0,  20.0, 0.0,       # Frequency, amplitude, phase shift(radians) pairs
                                         80.0, 10.0, 1.57,      # Add as much as needed
                                         20.0,  3.0, 3.14 
@@ -18,11 +18,18 @@
     square_wave:                      True
     square_wave_components:           [0.5, 25.0]              # Frequency, amplitude pairs
     
-    triangle_wave:                    True
-    triangle_wave_components:         [30.0, 24.0]              # Frequency, amplitude pairs
+    triangle_wave:                    False
+    triangle_wave_components:         [30.0, 24.0]             # Frequency, amplitude pairs
     
-    sawtooth_wave:                    True
+    sawtooth_wave:                    False
     sawtooth_wave_components:         [1.5, 20.0]              # Frequency, amplitude pairs
     
-    pulse_wave:                       True
-    pulse_wave_components:            [15.0, 15.0, 0.5]         # Frequency, amplitude, duty cycle pairs
+    pulse_wave:                       False
+    pulse_wave_components:            [15.0, 15.0, 0.5]        # Frequency, amplitude, duty cycle pairs
+
+    white_noise:                      False
+    white_noise_amplitude:            0.1
+
+    brown_noise:                      True                   
+    brown_noise_amplitude:            0.1
+    brown_noise_initial_value:        0.0
