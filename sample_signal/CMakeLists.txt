@@ -50,7 +50,6 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   sample_signal/imu.py
   sample_signal/sample_signal.py
-  sample_signal/sine_wave.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

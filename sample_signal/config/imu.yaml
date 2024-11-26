@@ -1,0 +1,4 @@
+/**/imu_sample:
+  ros__parameters:
+    subscription_topic:   "sample_wave"
+    publisher_topic:      "imu_sample"
