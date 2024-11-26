@@ -57,6 +57,14 @@ source /opt/ros/humble/setup.bash
 colcon build
 ```
 
+If you are building with `--symlink-install` flag or e.g. using VSCode ROS2 Extention please make sure that all executable python files in `ros_ws/src/ros2_dsp_filter/sample_signal/sample_signal` `sample_signal.py` and `imu.py` are made executable. Hence run
+
+```bash
+cd ros_ws/src/ros2_dsp_filter/sample_signal/sample_signal
+chmod +x sample_signal.py
+chmod +x imu.py
+```
+
 Now, source your workspace and try
 ```bash
 source install/setup.bash
