@@ -64,10 +64,11 @@ source /opt/ros/humble/setup.bash
 colcon build
 ```
 
-If you are using `colcon build --symlink-install` or e.g. using VSCode ROS2 Extention please make sure that all executable python files in
-`ros_ws/src/fft/filter_signal/filter_signal` `filter.py` and `analyse.py` are made executable. Hence run
+If you are building with `--symlink-install` flag or e.g. using VSCode ROS2 Extention please make sure that all executable python files in
+`ros_ws/src/ros2_dsp_filter/filter_signal/filter_signal` `filter.py`, `analyse.py` and `fourier.py` are made executable. Hence run
 
 ```bash
+cd ros_ws/src/ros2_dsp_filter/filter_signal/filter_signal
 chmod +x filter.py
 chmod +x analyse.py
 chmod +x fourier.py
