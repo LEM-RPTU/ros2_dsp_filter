@@ -24,11 +24,7 @@ def generate_launch_description():
             package = 'filter_signal',
             executable = 'filter.py',
             namespace=LaunchConfiguration('namespace'),
-            parameters=[
-                {'signal_topic': 'bno055/imu'},
-                {'config_path': '/home/erics/software/ros_ws/src/fft/filter_signal/filter_config'},
-                {'config_file_name': 'imu'}
-            ]
+            parameters=[parameter_file],
     )
 
 
