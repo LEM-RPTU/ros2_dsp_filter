@@ -92,6 +92,11 @@ ros2_dsp_filters
 Where cpp part is not yet implemented and left as a placeholder. 
 
 ## Building and Running
+This repository depends on `python3-scipy` and `python3-numpy`, hence please install
+```
+sudo apt-get install python3-scipy python3-numpy
+```
+or run `rosdep install --from-paths src -y --ignore-src` within your workspace. 
 0. Create ros2 workspace and source folder, if needed:
 ```bash
 mkdir -p ros2_ws/src
