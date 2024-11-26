@@ -56,13 +56,7 @@ Ignore `src` and `include`, they are only part of the used template to add CPP-f
 
 
 ## Building and Running
-Note that this package depends on `python3-scipy`, hence please install
-
-```
-sudo apt-get install python3-scipy
-```
-
-or run `rosdep install --from-paths src -y --ignore-src` within your workspace. To build, please navitage into your workspace (adapt the first line in case it is different than `ros_ws`) and run
+To build, please navitage into your workspace (adapt the first line in case it is different than `ros_ws`) and run
 
 ```bash
 cd ros_ws
