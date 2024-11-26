@@ -20,6 +20,9 @@ The repository consists of two standalone packages:
 Both repositories are documented with their own README files. It is advised to start with the `sample_signal` package if you are not very familiar with DSP.
 
 We also highly recommend using [PlotJuggler](https://plotjuggler.io/) for data visualization purposes. Why wouldn't you!?
+<p align="center"> 
+<img src="plotjuggler_meme.png" alt="Example Image"> 
+</p> 
 
 ## Getting started
 
@@ -89,6 +92,30 @@ ros2_dsp_filters
 Where cpp part is not yet implemented and left as a placeholder. 
 
 ## Building and Running
-
+0. Create ros2 workspace and source folder, if needed:
+```bash
+mkdir -p ros2_ws/src
+cd ros2_ws/src
+``` 
+1. Clone the package into the source of your ros2 workspace, source and build:
+```bash 
+git clone git@github.com:WICON-RPTU/ros2_dsp_filters.git
+cd ..
+source /opt/ros/humble/setup.bash
+colcon build
+```
+2. To check the default setup run in two different terminals:
+```bash 
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch sample_signal launch.py
+```
+and
+```bash 
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch filter_signal filter.launch.py
+```
+You should see a result similar to the [example](example.gif) in the beginning of this Readme.
 
 ## Working with this Package
