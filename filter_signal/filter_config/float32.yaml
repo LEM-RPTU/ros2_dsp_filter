@@ -1,1 +1,1 @@
-data: ['bandpass', [10.0, 20.0], 4]
+data: ['lowpass', 5.0, 4]

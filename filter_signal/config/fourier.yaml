@@ -1,5 +1,5 @@
 /**/fft_plotter:
   ros__parameters:
     topic: sample_wave
-    config_path: ./src/fft/filter_signal/fourier_config
+    config_path: ./src/ros2_dsp_filters/filter_signal/fourier_config
     config_file_name: float32
