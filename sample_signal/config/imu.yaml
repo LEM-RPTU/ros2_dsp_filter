@@ -2,3 +2,4 @@
   ros__parameters:
     subscription_topic:   "sample_wave"
     publisher_topic:      "imu_sample"
+    message_component:    "linear_acceleration_x"
