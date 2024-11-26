@@ -19,5 +19,5 @@ def generate_launch_description():
     )
     ld = LaunchDescription()
     ld.add_action(sample_cmd)
-    ld.add_action(filtered_sample_cmd)
+    #ld.add_action(filtered_sample_cmd)
     return ld

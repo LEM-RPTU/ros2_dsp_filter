@@ -4,7 +4,7 @@ from rclpy.node import Node
 import ros2topic.api
 import yaml
 import os
-from filter_signal.topic_analyser_parameters import ParameterSet
+from filter_signal.analyse_parameters import ParameterSet
 from rcl_interfaces.msg import SetParametersResult, Parameter
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
 
@@ -28,12 +28,10 @@ class GenericFilter(Node):
 
     def subscription_callback(self, msg):
         message_yaml = yaml.safe_load(ros2topic.api.message_to_yaml(msg))
-        node_name = self.get_name()
-        my_yaml = {node_name: message_yaml}
         result_full_path = os.path.join(self.params.config_path, self.params.result_file_name + '.yaml')
         try:
             with open(result_full_path, 'w') as file:
-                yaml.dump(my_yaml, file)
+                yaml.dump(message_yaml, file)
             self.get_logger().info('Please edit and use the following yaml in the config path: {} to filter the message'.format(result_full_path))
         except FileNotFoundError:
             self.get_logger().error('Could not write to file: {}. Check path validity and change parameters if necessary.'.format(result_full_path))
@@ -59,10 +57,6 @@ class GenericFilter(Node):
                 result.successful = False
                 result.reason = f"Parameter {param.name} cannot be changed runtime."
                 self.get_logger().warn(result.reason)
-            elif param.name == 'config_path':
-                result.successful = False
-                result.reason = f"Parameter {param.name} cannot be changed runtime."
-                self.get_logger().info(result.reason)
             elif param.name == 'config_path':
                 result.successful = False
                 result.reason = f"Parameter {param.name} cannot be changed runtime."

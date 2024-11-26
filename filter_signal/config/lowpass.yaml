@@ -1,8 +1,0 @@
-/**/filter_signal:
-  ros__parameters:
-    signal_topic: sample_wave
-    number_of_messages_to_average_sample_time_over: 1000
-    filter_type: lowpass # {lowpass, highpass, bandpass, bandstop} are supported
-    frequency_band: [20.0, 80.0] # if low-pass it will ignore the second value, high pass it will ignore the first value
-    filter_order: 4 # min. 1 and integer, e.g. 1 will be a first order filter
-    use_sim_time: false

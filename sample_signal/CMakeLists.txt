@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(filter_signal)
+project(sample_signal)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -11,8 +11,11 @@ find_package(ament_cmake_python REQUIRED)
 
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
-find_package(geometry_msgs REQUIRED)
+
+#find_package(geometry_msgs REQUIRED)
 
 # Include "include" directory for header files
 include_directories(include)
@@ -31,8 +34,6 @@ include_directories(include)
 install(DIRECTORY 
   config
   launch
-  filter_config
-  fourier_config
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -47,9 +48,8 @@ ament_python_install_package(${PROJECT_NAME})
 
 # Install Python executables
 install(PROGRAMS
-  filter_signal/filter.py
-  filter_signal/analyse.py
-  filter_signal/fourier.py
+  sample_signal/imu.py
+  sample_signal/sample_signal.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

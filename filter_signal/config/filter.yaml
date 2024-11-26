@@ -1,0 +1,5 @@
+/**/filter:
+  ros__parameters:
+    signal_topic: sample_wave
+    config_path: ./src/fft/filter_signal/filter_config
+    config_file_name: float32

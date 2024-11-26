@@ -4,6 +4,7 @@
   <name>filter_signal</name>
   <version>0.0.0</version>
   <description>Signal processing filter to any ROS2 topic.</description>
+  <maintainer email="dzmitry.maladzenkau@rptu.de">Dzmitry Maladzenkau</maintainer>
   <maintainer email="eric.schoeneberg@rptu.de">Eric Schoeneberg</maintainer>
   <license>TODO: License declaration</license>
 
@@ -12,10 +13,9 @@
 
   <depend>rclcpp</depend>
   <depend>rclpy</depend>
-  <depend>std_msgs</depend>
-
-  <exec_depend>python-numpy</exec_depend>
   <exec_depend>python3-scipy</exec_depend>
+  <exec_depend>python-matplotlib</exec_depend>
+  <exec_depend>python-numpy</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
