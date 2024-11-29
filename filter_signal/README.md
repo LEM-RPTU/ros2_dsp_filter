@@ -9,6 +9,7 @@ This package contains tools to signal-process any ROS2 message.
     - [Analyse](#analyse)
     - [Filter](#filter)
     - [Fourier](#fourier)
+4. [License](#license)
 
 
 ## About this repository
@@ -230,3 +231,38 @@ and load the edited file as the `filter` config file. While the configuration fi
 the file ending will be added automatically. The code will be running until it has saved all `number_of_samples` and then plot the result, e.g.:
 
 ![FFT result of real-world IMU data](fft_result.png) FFT result of real-world IMU data
+
+# License
+
+This project is primarily licensed under the **BSD 3-Clause License**.
+
+## Dependencies
+
+This project makes use of the following dependencies which are licensed under the Apache License, Version 2.0:
+
+- **rclpy**
+
+This dependency is part of the ROS 2 framework. You may obtain a copy of the License at:
+
+[apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+- **python3-scipy**
+- **python-numpy**
+
+SciPy and Numpy are released under a BSD-3-Clause license. You may obtain a copy of the License at:
+
+[opensource.org/license/bsd-3-clause](https://opensource.org/license/bsd-3-clause)
+
+- **python-matplotlib**
+
+Matplotlib is distributed under a BSD-style license. You may obtain a copy of the License at:
+
+[matplotlib.org/stable/project/license.html](https://matplotlib.org/stable/project/license.html)
+
+The use of these components does not affect the BSD-3 licensing of the original code in this project. 
+
+
+However, the following notice must be adhered to for these dependencies:
+
+**Compliance**:
+If you modify any of the Apache 2.0 licensed code, you must indicate your modifications in those files or within the documentation provided with the software.

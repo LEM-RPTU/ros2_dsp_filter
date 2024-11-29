@@ -6,6 +6,7 @@ Contains code to generate sample signals to test `filter_signal` package capabil
 1. [About this repository](#about-this-repository)
 2. [Getting started](#getting-started)
 3. [Building and Running](#building-and-running)
+4. [License](#license)
 
 
 ## About this package
@@ -105,3 +106,24 @@ to generate a sample signal with e.g. an overlaying signals of types:
 at 200Hz publishing rate:
 
 ![Sample Signal](sample_signal.png "Sample Signal")
+
+# License
+
+This project is primarily licensed under the **BSD 3-Clause License**.
+
+## Dependencies
+
+This project makes use of the following dependencies which are licensed under the Apache License, Version 2.0:
+
+- **rclpy**
+- **std_msgs**
+- **sensor_msgs**
+
+These dependencies are part of the ROS 2 framework. You may obtain a copy of the License at:
+
+[apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+The use of these components does not affect the BSD-3 licensing of the original code in this project. However, the following notice must be adhered to for these dependencies:
+
+**Compliance**:
+If you modify any of the Apache 2.0 licensed code, you must indicate your modifications in those files or within the documentation provided with the software.

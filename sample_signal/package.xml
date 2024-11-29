@@ -6,7 +6,7 @@
   <description>Template for a ROS2 package containing C++ and Python code.</description>
   <maintainer email="dzmitry.maladzenkau@rptu.de">Dzmitry Maladzenkau</maintainer>
   <maintainer email="eric.schoeneberg@rptu.de">Eric Schoeneberg</maintainer>
-  <license>Apache-2.0</license>
+  <license>BSD-3</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
