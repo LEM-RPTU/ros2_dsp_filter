@@ -16,17 +16,17 @@ Example of a lowpass-filtered signal consisting of three white noised sines with
 
 And the associated example Fourier plots.
 
-## About this repository
+## About this Repository
 The repository consists of two standalone packages:
 - `sample_signal`: This package allows you to create different signals consisting of various periodic elements enriched by white noise and/or a base signal to test the `filter_signal` package.
 - `filter_signal`: This package applies an FFT transform to any specified ROS2 topic (which should be analyzed first) and displays the data in the frequency domain. Based on this analysis, the user can choose a suitable filter and apply it to the live topic to get a filtered result with a small delay.
 
-Both packages are documented with their own README files. It is advised to start with the `sample_signal` package if you are not very familiar with DSP.We also highly recommend using [PlotJuggler](https://plotjuggler.io/) for data visualization purposes. Why wouldn't you!?
+Both packages are documented with their own README files. It is advised to start with the `sample_signal` package if you are not very familiar with DSP. We also highly recommend using [PlotJuggler](https://plotjuggler.io/) for data visualization purposes. Why wouldn't you!?
 <p align="center"> 
 <img src="plotjuggler_meme.png" alt="Plotjuggler Meme"> 
 </p> 
 
-## Getting started
+## Getting Started
 
 The current repository tree looks like
 ```bash
