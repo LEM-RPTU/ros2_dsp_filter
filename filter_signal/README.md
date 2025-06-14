@@ -12,7 +12,7 @@ This package contains tools to signal-process any ROS2 message.
 4. [License](#license)
 
 
-## About this repository
+## About this Repository
 
 This package contains two executables `analyse.py`, `filter.py` and `fourier.py` to analyse and then signal-process any ROS2 message. Currently
 any float part of any message can be filtered with
@@ -24,7 +24,7 @@ any float part of any message can be filtered with
 
 based on your configuration. 
 
-## Getting started
+## Getting Started
 
 The current package looks like
 ```bash
@@ -77,7 +77,7 @@ chmod +x fourier.py
 
 Remember that only message types can be analysed and filtered that are also sourced. Hence if there is an interface package in your workspace (not installed in /opt/ros), make sure to also source the workspace before running. To run, proceed with [Analyse](#analyse) and [Filter](#filter). Note there exists `analyse.launch.py`, `filter.launch.py` and `fourier.launch.py` launch files with associated `analyse.yaml`, `filter.yaml` and `fourier.yaml` configuration files for orientation.
 
-### Analyse
+### Analysis
 
 Because any message type is supported, to filter a message you first have to analyse it. `analyse.py` will subscribe to a `topic` of your choice of arbitrary message type (as long as the message definition is sourced). It will then write the structure of the message as `result_file_name.yaml` into a specified `config_path`. The parameter:default_value are as following:
 
