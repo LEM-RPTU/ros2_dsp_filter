@@ -3,10 +3,10 @@
 This package contains tools to signal-process any ROS2 message.
 
 ## Table of Contents
-1. [About this repository](#about-this-repository)
-2. [Getting started](#getting-started)  
+1. [About this Repository](#about-this-repository)
+2. [Getting Started](#getting-started)  
 3. [Building and Running](#building-and-running)  
-    - [Analyse](#analyse)
+    - [Analysis](#analyse)
     - [Filter](#filter)
     - [Fourier](#fourier)
 4. [License](#license)
