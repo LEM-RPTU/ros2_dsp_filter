@@ -3,8 +3,8 @@
 ROS2 package to filter generic time series (e.g. IMU data) using DSP (Digital Signal Processing) tools.
 
 ## Table of Contents
-1. [About this repository](#about-this-repository)
-2. [Getting started](#getting-started)
+1. [About this Repository](#about-this-repository)
+2. [Getting Started](#getting-started)
 3. [Building and Running](#building-and-running)
 4. [Working with this Code](#working-with-this-package)
 
