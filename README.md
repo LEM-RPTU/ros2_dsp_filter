@@ -22,9 +22,9 @@ The repository consists of two standalone packages:
 - `filter_signal`: This package applies an FFT transform to any specified ROS2 topic (which should be analyzed first) and displays the data in the frequency domain. Based on this analysis, the user can choose a suitable filter and apply it to the live topic to get a filtered result with a small delay.
 
 Both packages are documented with their own README files. It is advised to start with the `sample_signal` package if you are not very familiar with DSP. We also highly recommend using [PlotJuggler](https://plotjuggler.io/) for data visualization purposes. Why wouldn't you!?
-// <p align="center"> 
-// <img src="plotjuggler_meme.png" alt="Plotjuggler Meme"> 
-// </p> 
+<p align="center"> 
+<img src="plotjuggler_meme.png" alt="Plotjuggler Meme"> 
+</p> 
 
 ## Getting Started
 
